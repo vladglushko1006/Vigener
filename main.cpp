@@ -1,23 +1,43 @@
-#include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
+#include <cs50.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
 
-using namespace std;
-
-int main ()
+int main(int argc, string argv[])
 {
-int a;
-scanf("%d", &a);
-if (a<1)
-	printf("NO");
-else 
-  {
-	if (a=1)
-	printf("YES");
-	else if (a%2==0)
-	a= a/2;
-	else 
-	printf("NO");
-  }
- }
+    if (argc != 2)
+    {
+        printf("You have missed a key or entered more than one");
+        return 1;
+    }
+    string key = argv[1];
 
+    for (int i = 0; i<strlen(key); i++)
+    {
+		if (!isalpha(key[i]))
+		{
+			printf("The key isn't alphabetical");
+			return 1;
+		}
+		else key[i] = toupper(key[i]);
+    }
+
+    string text = GetString();
+
+    for (int i = 0, k = 0; i<strlen(text); i++)
+    {
+        if (isalpha(text[i]))
+        {
+            if (isupper(text[i]))
+                text[i] = (((text[i] - 'A') + (key[(k++) % strlen(key)] - 'A')) % 26) + 'A';
+
+            if (islower(text[i]))
+                text[i] = ((text[i] - 'a') + (key[(k++) % strlen(key)] - 'A')) % 26 + 'a';
+        }
+        else text[i] = text[i];
+    }
+    
+    printf("%s\n", text);
+    return 0;
+}
