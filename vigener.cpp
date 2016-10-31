@@ -6,6 +6,7 @@
 
 int main(int argc, string argv[])
 {
+	// number of arguments
     if (argc != 2)
     {
         printf("You have missed a key or entered more than one");
@@ -30,9 +31,10 @@ int main(int argc, string argv[])
         if (isalpha(text[i]))
         {
             if (isupper(text[i]))
-                text[i] = (((text[i] - 'A') + (key[(k++) % strlen(key)] - 'A')) % 26) + 'A';
+		    // 26- number of english letters in english alphabet
+                text[i] = (((text[i] - 'A') + (key[(k++) % key.size()] - 'A')) % 26) + 'A';
 			else
-                text[i] = ((text[i] - 'a') + (key[(k++) % strlen(key)] - 'A')) % 26 + 'a';
+                text[i] = (((text[i] - 'a') + (key[(k++) % key.size()] - 'A')) % 26) + 'a';
         }
     }
     
